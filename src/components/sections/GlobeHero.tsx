@@ -51,7 +51,7 @@ export default function GlobeHero() {
       }}
     >
       {/* Header text */}
-      <div className="relative z-10 pt-28 pb-2 text-center px-6">
+      <div className="relative z-10 pt-32 pb-2 text-center px-6">
         <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
           Explore the World with&nbsp;
           <span className="text-[#f58220]">{siteInfo.shortName}</span>
