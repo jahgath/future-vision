@@ -6,7 +6,7 @@ export default function ContactPage() {
       <div className="mx-auto max-w-xl">
         <h1 className="text-3xl font-bold text-center text-primary">Get in Touch</h1>
         <p className="mt-3 text-center text-primary-light">
-          Have a question or ready to book? We&apos;d love to hear from you.
+          Have a question or ready to plan your next trip? We&apos;d love to hear from you.
         </p>
 
         <div className="mt-8 rounded-2xl bg-primary-lighter/10 p-6 text-sm text-primary-light space-y-2 border border-primary-lighter/20">
