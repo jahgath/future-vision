@@ -332,7 +332,7 @@ function CameraPositioner({
   const positioned = useRef(false);
 
   useEffect(() => {
-    if (!initialPosition || positioned.current) return;
+    if (!initialPosition || positioned.current || !controls) return;
     positioned.current = true;
 
     const { lat, lng } = initialPosition;
@@ -347,9 +347,7 @@ function CameraPositioner({
     camera.position.set(z * CAMERA_Z, y * CAMERA_Z, -x * CAMERA_Z);
     camera.lookAt(0, 0, 0);
 
-    if (controls) {
-      (controls as unknown as { update: () => void }).update();
-    }
+    (controls as unknown as { update: () => void }).update();
   }, [initialPosition, camera, controls]);
 
   return null;

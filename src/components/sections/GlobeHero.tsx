@@ -28,7 +28,7 @@ const globeConfig: GlobeConfig = {
   maxRings: 3,
   autoRotate: true,
   autoRotateSpeed: 0.5,
-  initialPosition: { lat: 9.9312, lng: 76.2673 },
+  initialPosition: { lat: 20.5937, lng: 0 },
 };
 
 export default function GlobeHero() {
