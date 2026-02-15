@@ -1,0 +1,21 @@
+{
+  "name": "Future Vision Travel and Tours",
+  "shortName": "Future Vision",
+  "description": "Your trusted travel agency for unforgettable destinations and curated travel experiences.",
+  "location": {
+    "building": "Vanchipurackal Buildings",
+    "junction": "Mangarakulangu Jn.",
+    "street": "Pala Road",
+    "postOffice": "Ettumanoor P.O",
+    "district": "Kottayam",
+    "state": "Kerala",
+    "pincode": "686631",
+    "country": "India",
+    "full": "Vanchipurackal Buildings, Mangarakulangu Jn., Pala Road, Ettumanoor P.O, Kottayam, Kerala - 686631, India"
+  },
+  "contact": {
+    "email": "info@futurevisiontours.com",
+    "phone1": "+91 94477 36469",
+    "phone2": "+91 89431 21169"
+  }
+}
