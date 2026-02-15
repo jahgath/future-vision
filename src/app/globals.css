@@ -24,3 +24,25 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* 17 cards × (288px + 24px gap) = 5304px */
+    transform: translateX(-5304px);
+  }
+}
+
+.animate-carousel {
+  animation: carousel 60s linear infinite;
+}

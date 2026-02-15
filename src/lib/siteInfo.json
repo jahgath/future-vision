@@ -11,11 +11,15 @@
     "state": "Kerala",
     "pincode": "686631",
     "country": "India",
-    "full": "Vanchipurackal Buildings, Mangarakulangu Jn., Pala Road, Ettumanoor P.O, Kottayam, Kerala - 686631, India"
+    "full": "Vanchipurackal Buildings, Mangarakulangu Jn., Pala Road, Ettumanoor P.O, Kottayam, Kerala - 686631, India",
+    "mapLink": "https://maps.app.goo.gl/ZzL39naTqPz16sft7",
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.104641709307!2d76.56650557531468!3d9.672099790417215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10545b8061a1eae3%3A0x1e4c14b057296c5!2sFuture%20Vision%20TRAVEL%20%26%20TOURS%20INDIA%20P.LTD!5e0!3m2!1sen!2sin!4v1771183502931!5m2!1sen!2sin"
   },
   "contact": {
     "email": "info@futurevisiontours.com",
     "phone1": "+91 94477 36469",
-    "phone2": "+91 89431 21169"
+    "phone2": "+91 89431 21169",
+    "whatsapp1": "919447736469",
+    "whatsapp2": "918943121169"
   }
 }

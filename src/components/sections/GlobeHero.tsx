@@ -13,18 +13,15 @@ const World = dynamic(() => import("@/components/ui/Globe"), { ssr: false });
 
 const globeConfig: GlobeConfig = {
   pointSize: 4,
-  globeColor: "#023f88",
+  globeColor: "#0c3a6b",
   showAtmosphere: true,
-  atmosphereColor: "#8ea6d6",
-  atmosphereAltitude: 0.15,
-  emissive: "#012a5c",
-  emissiveIntensity: 0.15,
-  shininess: 0.9,
-  polygonColor: "rgba(255,255,255,0.7)",
-  ambientLight: "#7592c1",
-  directionalLeftLight: "#ffffff",
-  directionalTopLight: "#ffffff",
-  pointLight: "#ffffff",
+  atmosphereColor: "#4a7aa5",
+  atmosphereAltitude: 0.12,
+  emissive: "#0c3a6b",
+  emissiveIntensity: 0.25,
+  shininess: 0.7,
+  polygonColor: "rgba(138, 180, 214, 0.85)",
+  ambientLight: "#c8daea",
   arcTime: 1200,
   arcLength: 0.9,
   rings: 1,
@@ -65,7 +62,7 @@ export default function GlobeHero() {
       </div>
 
       {/* Globe container */}
-      <div className="relative z-0 mx-auto w-full max-w-3xl aspect-square -mt-8 sm:-mt-12">
+      <div className="relative z-0 mx-auto w-full max-w-2xl aspect-square -mt-4">
         <World
           globeConfig={globeConfig}
           data={travelArcs}

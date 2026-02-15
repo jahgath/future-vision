@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
-import { Color, Scene, Fog, PerspectiveCamera, Vector3, Group } from "three";
+import { Color, Scene, PerspectiveCamera, Vector3, Group } from "three";
 import ThreeGlobe from "three-globe";
 import {
   useThree,
@@ -323,6 +323,38 @@ function WebGLRendererConfig() {
   return null;
 }
 
+function CameraPositioner({
+  initialPosition,
+}: {
+  initialPosition?: { lat: number; lng: number };
+}) {
+  const { camera, controls } = useThree();
+  const positioned = useRef(false);
+
+  useEffect(() => {
+    if (!initialPosition || positioned.current) return;
+    positioned.current = true;
+
+    const { lat, lng } = initialPosition;
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (90 - lng) * (Math.PI / 180);
+    const sinPhi = Math.sin(phi);
+    const x = sinPhi * Math.cos(theta);
+    const y = Math.cos(phi);
+    const z = sinPhi * Math.sin(theta);
+
+    // Account for three-globe's internal rotation.y = +PI/2
+    camera.position.set(z * CAMERA_Z, y * CAMERA_Z, -x * CAMERA_Z);
+    camera.lookAt(0, 0, 0);
+
+    if (controls) {
+      (controls as unknown as { update: () => void }).update();
+    }
+  }, [initialPosition, camera, controls]);
+
+  return null;
+}
+
 export default function World({
   globeConfig,
   data,
@@ -330,48 +362,17 @@ export default function World({
   selectedDestination = null,
   onDestinationClick,
 }: WorldProps) {
-  const scene = useMemo(() => {
-    const s = new Scene();
-    s.fog = new Fog(0xffffff, 400, 2000);
-    return s;
-  }, []);
-
-  const camera = useMemo(() => {
-    const cam = new PerspectiveCamera(50, ASPECT, 180, 1800);
-    if (globeConfig.initialPosition) {
-      const { lat, lng } = globeConfig.initialPosition;
-      const phi = (90 - lat) * (Math.PI / 180);
-      const theta = (90 - lng) * (Math.PI / 180);
-      const sinPhi = Math.sin(phi);
-      // Local globe coords
-      const x = sinPhi * Math.cos(theta);
-      const y = Math.cos(phi);
-      const z = sinPhi * Math.sin(theta);
-      // Account for three-globe's internal rotation.y = -PI/2
-      cam.position.set(-z * CAMERA_Z, y * CAMERA_Z, x * CAMERA_Z);
-    } else {
-      cam.position.set(0, 0, CAMERA_Z);
-    }
-    return cam;
-  }, []);
+  const scene = useMemo(() => new Scene(), []);
+  const camera = useMemo(
+    () => new PerspectiveCamera(50, ASPECT, 180, 1800),
+    [],
+  );
 
   return (
     <Canvas scene={scene} camera={camera}>
       <WebGLRendererConfig />
-      <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
-      <directionalLight
-        color={globeConfig.directionalLeftLight}
-        position={new Vector3(-400, 100, 400)}
-      />
-      <directionalLight
-        color={globeConfig.directionalTopLight}
-        position={new Vector3(-200, 500, 200)}
-      />
-      <pointLight
-        color={globeConfig.pointLight}
-        position={new Vector3(-200, 500, 200)}
-        intensity={0.8}
-      />
+      <CameraPositioner initialPosition={globeConfig.initialPosition} />
+      <ambientLight color={globeConfig.ambientLight} intensity={1.5} />
       <GlobeVisual
         globeConfig={globeConfig}
         data={data}
@@ -380,6 +381,7 @@ export default function World({
         onDestinationClick={onDestinationClick}
       />
       <OrbitControls
+        makeDefault
         enablePan={false}
         enableZoom={false}
         minDistance={CAMERA_Z}

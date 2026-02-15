@@ -1,0 +1,143 @@
+{
+  "heading": "Our Destinations",
+  "subtitle": "From the sacred ghats of Varanasi to the futuristic skyline of Dubai, we craft journeys to destinations that inspire. Browse our curated collection and start planning your next adventure.",
+  "categories": [
+    {
+      "title": "India",
+      "description": "Discover the incredible diversity of India — ancient temples, sun-kissed beaches, misty hill stations, and vibrant cities waiting to be explored.",
+      "destinations": [
+        {
+          "id": "delhi",
+          "name": "Delhi",
+          "tagline": "Heart of India",
+          "description": "A sprawling capital where Mughal-era grandeur meets modern energy — from the Red Fort to bustling Chandni Chowk.",
+          "highlights": ["Red Fort", "Qutub Minar", "India Gate"]
+        },
+        {
+          "id": "jaipur",
+          "name": "Jaipur, Rajasthan",
+          "tagline": "The Pink City",
+          "description": "Royal palaces, vibrant bazaars, and majestic forts painted in the warm hues of Rajasthan.",
+          "highlights": ["Hawa Mahal", "Amber Fort", "City Palace"]
+        },
+        {
+          "id": "goa",
+          "name": "Goa",
+          "tagline": "Sun, Sand & Soul",
+          "description": "Golden beaches, Portuguese heritage, and legendary nightlife on India's tropical west coast.",
+          "highlights": ["Baga Beach", "Basilica of Bom Jesus", "Dudhsagar Falls"]
+        },
+        {
+          "id": "kerala",
+          "name": "Kerala",
+          "tagline": "God's Own Country",
+          "description": "Serene backwaters, lush hill stations, and Ayurvedic traditions in India's greenest state.",
+          "highlights": ["Alleppey Backwaters", "Munnar Tea Gardens", "Fort Kochi"]
+        },
+        {
+          "id": "varanasi",
+          "name": "Varanasi",
+          "tagline": "The Eternal City",
+          "description": "One of the world's oldest living cities — sacred ghats, evening aartis, and deep spiritual energy on the banks of the Ganges.",
+          "highlights": ["Dashashwamedh Ghat", "Kashi Vishwanath", "Boat Ride at Dawn"]
+        },
+        {
+          "id": "leh-ladakh",
+          "name": "Leh-Ladakh",
+          "tagline": "Land of High Passes",
+          "description": "Breathtaking Himalayan landscapes, ancient monasteries, and some of the highest motorable roads on earth.",
+          "highlights": ["Pangong Lake", "Nubra Valley", "Khardung La Pass"]
+        },
+        {
+          "id": "andaman",
+          "name": "Andaman Islands",
+          "tagline": "Tropical Island Escape",
+          "description": "Pristine white-sand beaches, turquoise waters, and vibrant coral reefs in the Bay of Bengal.",
+          "highlights": ["Radhanagar Beach", "Cellular Jail", "Scuba at Havelock"]
+        }
+      ]
+    },
+    {
+      "title": "International",
+      "description": "Venture beyond borders with our handpicked international destinations — Southeast Asian gems, Middle Eastern marvels, and Caucasus treasures.",
+      "destinations": [
+        {
+          "id": "singapore",
+          "name": "Singapore",
+          "tagline": "The Lion City",
+          "description": "A dazzling city-state where futuristic architecture, world-class dining, and lush gardens blend seamlessly.",
+          "highlights": ["Marina Bay Sands", "Gardens by the Bay", "Sentosa Island"]
+        },
+        {
+          "id": "malaysia",
+          "name": "Kuala Lumpur, Malaysia",
+          "tagline": "Where Cultures Converge",
+          "description": "A vibrant melting pot of Malay, Chinese, and Indian cultures crowned by the iconic Petronas Towers.",
+          "highlights": ["Petronas Towers", "Batu Caves", "Langkawi Island"]
+        },
+        {
+          "id": "bali",
+          "name": "Bali, Indonesia",
+          "tagline": "Island of the Gods",
+          "description": "Discover tropical paradise with ancient temples, terraced rice paddies, and pristine beaches.",
+          "highlights": ["Ubud Rice Terraces", "Tanah Lot Temple", "Seminyak Beach"]
+        },
+        {
+          "id": "thailand",
+          "name": "Bangkok, Thailand",
+          "tagline": "City of Angels",
+          "description": "Glittering temples, floating markets, and legendary street food in Southeast Asia's most electrifying capital.",
+          "highlights": ["Grand Palace", "Chatuchak Market", "Phi Phi Islands"]
+        },
+        {
+          "id": "vietnam",
+          "name": "Hanoi, Vietnam",
+          "tagline": "The Enchanting Capital",
+          "description": "Ancient charm meets vibrant energy — from the Old Quarter's bustling lanes to the serene waters of Ha Long Bay.",
+          "highlights": ["Ha Long Bay", "Hoi An Old Town", "Sapa Rice Terraces"]
+        },
+        {
+          "id": "azerbaijan",
+          "name": "Baku, Azerbaijan",
+          "tagline": "Land of Fire",
+          "description": "A striking blend of medieval old town and ultra-modern architecture on the shores of the Caspian Sea.",
+          "highlights": ["Flame Towers", "Old City (Icherisheher)", "Heydar Aliyev Center"]
+        },
+        {
+          "id": "georgia",
+          "name": "Tbilisi, Georgia",
+          "tagline": "Where Europe Meets Asia",
+          "description": "Cobblestone streets, ancient churches, and a thriving wine culture nestled between the Caucasus Mountains.",
+          "highlights": ["Old Town Tbilisi", "Kazbegi Mountains", "Georgian Wine Country"]
+        },
+        {
+          "id": "oman",
+          "name": "Muscat, Oman",
+          "tagline": "Jewel of Arabia",
+          "description": "Dramatic fjords, golden deserts, and timeless souqs in the most welcoming corner of the Arabian Peninsula.",
+          "highlights": ["Sultan Qaboos Mosque", "Wadi Shab", "Wahiba Sands"]
+        },
+        {
+          "id": "uae",
+          "name": "Dubai, UAE",
+          "tagline": "City of the Future",
+          "description": "From the world's tallest tower to vast golden deserts — a playground of luxury and innovation.",
+          "highlights": ["Burj Khalifa", "Palm Jumeirah", "Desert Safari"]
+        },
+        {
+          "id": "srilanka",
+          "name": "Sri Lanka",
+          "tagline": "Pearl of the Indian Ocean",
+          "description": "Ancient ruins, misty tea hills, golden beaches, and abundant wildlife on a compact tropical island.",
+          "highlights": ["Sigiriya Rock", "Ella Train Ride", "Galle Fort"]
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "heading": "Don't see your dream destination?",
+    "text": "We specialize in crafting custom itineraries. Tell us where you want to go, and we'll make it happen.",
+    "buttonLabel": "Get in Touch",
+    "buttonLink": "/contact"
+  }
+}
