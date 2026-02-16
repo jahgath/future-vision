@@ -95,64 +95,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Story */}
-      <section className="bg-primary-lighter/10 py-16 px-6">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-primary">Our Story</h2>
-          <div className="mt-4 space-y-4 text-sm text-primary-light leading-relaxed">
-            <p>
-              Future Vision Travel was founded in 2013 by Jijo Sreenivasan with
-              a simple belief: every person deserves a travel experience that is
-              well-planned, fairly priced, and truly memorable. What started as a
-              small office in Ettumanoor, Kottayam has grown into a trusted name
-              across Kerala and beyond.
-            </p>
-            <p>
-              Over the past decade, we have helped thousands of travellers
-              explore the best of India — from the royal forts of Rajasthan and
-              the serene hills of Munnar to the sacred ghats of Varanasi. Our
-              international portfolio spans Southeast Asia, the Middle East, the
-              Caucasus, and island getaways like Bali, Sri Lanka, and the
-              Andaman Islands.
-            </p>
-            <p>
-              As a registered private limited company under the Ministry of
-              Corporate Affairs, we hold ourselves to the highest standards of
-              professionalism, transparency, and customer care. Our growth has
-              always been driven by word-of-mouth — because when your travellers
-              return happy, they bring the next ones along.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* What We Value */}
-      <section className="py-16 px-6">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-primary text-center">
-            What We Stand For
-          </h2>
-          <p className="mt-3 text-center text-primary-light">
-            The principles that guide every trip we plan.
-          </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {values.map((v) => (
-              <div
-                key={v.title}
-                className="rounded-2xl border border-primary-lighter/20 bg-primary-lighter/10 p-6"
-              >
-                <h3 className="text-lg font-semibold text-primary">
-                  {v.title}
-                </h3>
-                <p className="mt-2 text-sm text-primary-light leading-relaxed">
-                  {v.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Leadership */}
       <section className="bg-primary-lighter/10 py-16 px-6">
         <div className="mx-auto max-w-3xl text-center">
@@ -203,6 +145,64 @@ export default function AboutPage() {
               </svg>
               @jijosreenivasan
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Story */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-primary text-center">Our Story</h2>
+          <div className="mt-4 space-y-4 text-sm text-primary-light leading-relaxed text-center">
+            <p>
+              Future Vision Travel was founded in 2013 by Jijo Sreenivasan with
+              a simple belief: every person deserves a travel experience that is
+              well-planned, fairly priced, and truly memorable. What started as a
+              small office in Ettumanoor, Kottayam has grown into a trusted name
+              across Kerala and beyond.
+            </p>
+            <p>
+              Over the past decade, we have helped thousands of travellers
+              explore the best of India — from the royal forts of Rajasthan and
+              the serene hills of Munnar to the sacred ghats of Varanasi. Our
+              international portfolio spans Southeast Asia, the Middle East, the
+              Caucasus, and island getaways like Bali, Sri Lanka, and the
+              Andaman Islands.
+            </p>
+            <p>
+              As a registered private limited company under the Ministry of
+              Corporate Affairs, we hold ourselves to the highest standards of
+              professionalism, transparency, and customer care. Our growth has
+              always been driven by word-of-mouth — because when your travellers
+              return happy, they bring the next ones along.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Value */}
+      <section className="bg-primary-lighter/10 py-16 px-6">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-bold text-primary text-center">
+            What We Stand For
+          </h2>
+          <p className="mt-3 text-center text-primary-light">
+            The principles that guide every trip we plan.
+          </p>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {values.map((v) => (
+              <div
+                key={v.title}
+                className="rounded-2xl border border-primary-lighter/20 bg-white p-6"
+              >
+                <h3 className="text-lg font-semibold text-primary">
+                  {v.title}
+                </h3>
+                <p className="mt-2 text-sm text-primary-light leading-relaxed">
+                  {v.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
