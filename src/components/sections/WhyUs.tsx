@@ -8,11 +8,11 @@ const reasons = [
 
 export default function WhyUs() {
   return (
-    <section id="about" className="bg-primary-lighter/10 py-20 px-6">
+    <section id="about" className="bg-primary-lighter/10 py-12 sm:py-20 px-4 sm:px-6 w-full">
       <div className="mx-auto max-w-7xl text-center">
         <h2 className="text-3xl font-bold text-primary">Why Travel With Us</h2>
         <p className="mt-3 text-primary-light">What sets {siteInfo.name} apart.</p>
-        <div className="mt-12 grid gap-8 sm:grid-cols-3">
+        <div className="mt-8 sm:mt-12 grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-3">
           {reasons.map((r) => (
             <div key={r.title} className="rounded-2xl bg-white p-8 shadow-sm border border-primary-lighter/20">
               <h3 className="text-lg font-semibold text-primary">{r.title}</h3>

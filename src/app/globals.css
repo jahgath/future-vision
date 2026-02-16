@@ -21,7 +21,16 @@
 
 html,
 body {
+  width: 100%;
+  min-width: 100%;
   overflow-x: clip;
+}
+
+/* Landscape orientation fixes for mobile */
+@media (orientation: landscape) and (max-height: 500px) {
+  html, body {
+    min-height: 100%;
+  }
 }
 
 body {

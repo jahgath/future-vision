@@ -43,7 +43,7 @@ export default function RootLayout({
         className="antialiased"
       >
         <Header />
-        <main>{children}</main>
+        <main className="w-full overflow-x-clip">{children}</main>
         <Footer />
       </body>
     </html>

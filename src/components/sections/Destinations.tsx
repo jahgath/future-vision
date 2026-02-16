@@ -44,8 +44,8 @@ export default function Destinations() {
   }, []);
 
   return (
-    <section id="destinations" className="py-20">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="destinations" className="py-12 sm:py-20 w-full">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <h2 className="text-3xl font-bold text-center text-primary">
           Popular Destinations
         </h2>
@@ -54,7 +54,7 @@ export default function Destinations() {
         </p>
       </div>
 
-      <div className="relative mt-12 group">
+      <div className="relative mt-12 group overflow-hidden">
         {/* Left arrow */}
         <button
           onClick={() => scroll("left")}

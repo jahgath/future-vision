@@ -231,14 +231,14 @@ export default function GlobeHero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[90vh] overflow-hidden"
+      className="relative min-h-[90vh] landscape:min-h-[max(100vh,500px)] w-full overflow-hidden"
       style={{
         background:
           "linear-gradient(to bottom, #000510 0%, #000a1a 20%, #010e2a 40%, #061a38 52%, #0e2d55 62%, #1a4a7a 72%, #3070a0 80%, #5a9ac0 86%, #8ab8d8 90%, #b0d0e8 93%, #d4e6f2 96%, #ffffff 100%)",
       }}
     >
       {/* Header text */}
-      <div className="relative z-10 pt-32 pb-2 text-center px-6">
+      <div className="relative z-10 pt-32 landscape:pt-20 pb-2 text-center px-4 sm:px-6">
         <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
           Explore the World with&nbsp;
           <span className="text-[#f58220]">{siteInfo.shortName}</span>
@@ -249,7 +249,7 @@ export default function GlobeHero() {
       </div>
 
       {/* Globe + side image grids — CSS Grid prevents overlap */}
-      <div className="relative z-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] items-center px-3 xl:px-8 -mt-4">
+      <div className="relative z-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] items-center px-3 xl:px-8 -mt-4 w-full">
         {/* Left grid */}
         <div
           className="hidden lg:block"
@@ -362,7 +362,7 @@ export default function GlobeHero() {
 
       {/* Destination popup card */}
       <div
-        className={`absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[90%] max-w-md transition-all duration-300 ease-out ${
+        className={`absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[92%] max-w-md transition-all duration-300 ease-out ${
           selected
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
             : "opacity-0 translate-y-5 scale-95 pointer-events-none"
