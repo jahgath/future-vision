@@ -1,6 +1,18 @@
 import type { Metadata } from "next";
-import GlobeHero from "@/components/sections/GlobeHero";
+import dynamic from "next/dynamic";
 import Destinations from "@/components/sections/Destinations";
+
+const GlobeHero = dynamic(() => import("@/components/sections/GlobeHero"), {
+  loading: () => (
+    <section
+      className="relative min-h-[90vh]"
+      style={{
+        background:
+          "linear-gradient(to bottom, #010b1f 0%, #011638 25%, #012a5c 55%, #1a4a7a 70%, #4a7aa5 80%, #8ab0d0 88%, #c8daea 94%, #ffffff 100%)",
+      }}
+    />
+  ),
+});
 import WhyUs from "@/components/sections/WhyUs";
 import CTA from "@/components/sections/CTA";
 import siteInfo from "@/lib/siteInfo.json";

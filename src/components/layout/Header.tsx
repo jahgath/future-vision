@@ -24,13 +24,13 @@ export default function Header() {
           : "backdrop-blur-xl bg-primary/10 border-b border-primary/10 shadow-sm"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
         <Link href="/">
           <Image
             src={isHome ? "/images/future-vision-logo-white.png" : "/images/future-vision-logo-2.png"}
             alt="Future Vision Travel and Tours"
-            width={160}
-            height={60}
+            width={130}
+            height={44}
             priority
           />
         </Link>

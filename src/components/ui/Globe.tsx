@@ -1,7 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
-import { Color, Scene, PerspectiveCamera, Vector3, Group } from "three";
+import {
+  Color,
+  Scene,
+  PerspectiveCamera,
+  Vector3,
+  Group,
+  BufferGeometry,
+  BufferAttribute,
+  Line as ThreeLine,
+  LineBasicMaterial,
+} from "three";
 import ThreeGlobe from "three-globe";
 import {
   useThree,
@@ -113,7 +123,7 @@ function DestinationMarker({
           >
             <span className="relative flex h-3.5 w-3.5">
               <span
-                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isSelected ? "bg-[#f58220]" : "bg-cyan-400"}`}
+                className={`absolute inline-flex h-full w-full rounded-full opacity-50 scale-150 ${isSelected ? "bg-[#f58220]" : "bg-cyan-400"}`}
               />
               <span
                 className={`relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-white/80 shadow-lg ${isSelected ? "bg-[#f58220]" : "bg-cyan-500"}`}
@@ -126,6 +136,200 @@ function DestinationMarker({
         </div>
       </Html>
     </group>
+  );
+}
+
+// --- Flight animation ---
+
+const FLIGHT_ROUTE_1 = [
+  { lat: 9.9312, lng: 76.2673 }, // Kerala
+  { lat: 25.2048, lng: 55.2708 }, // Dubai
+  { lat: 41.7151, lng: 44.8271 }, // Georgia
+  { lat: 40.4093, lng: 49.8671 }, // Baku
+  { lat: 28.6139, lng: 77.209 }, // Delhi
+  { lat: 21.0285, lng: 105.8542 }, // Vietnam
+  { lat: 13.7563, lng: 100.5018 }, // Thailand
+  { lat: 1.3521, lng: 103.8198 }, // Singapore
+  { lat: -8.3405, lng: 115.092 }, // Bali
+];
+
+// Full orbit around the globe at ~30°N, evenly spaced
+const FLIGHT_ROUTE_2 = Array.from({ length: 10 }, (_, i) => ({
+  lat: 30,
+  lng: (i * 36) % 360,
+}));
+
+function latLngToUnitVector(lat: number, lng: number): Vector3 {
+  const phi = (90 - lat) * (Math.PI / 180);
+  const theta = (90 - lng) * (Math.PI / 180);
+  const sinPhi = Math.sin(phi);
+  return new Vector3(
+    sinPhi * Math.cos(theta),
+    Math.cos(phi),
+    sinPhi * Math.sin(theta),
+  );
+}
+
+function slerpVectors(v1: Vector3, v2: Vector3, t: number): Vector3 {
+  const dot = Math.min(Math.max(v1.dot(v2), -1), 1);
+  const omega = Math.acos(dot);
+  if (omega < 0.001) return v1.clone();
+  const sinOmega = Math.sin(omega);
+  const a = Math.sin((1 - t) * omega) / sinOmega;
+  const b = Math.sin(t * omega) / sinOmega;
+  return new Vector3(
+    a * v1.x + b * v2.x,
+    a * v1.y + b * v2.y,
+    a * v1.z + b * v2.z,
+  );
+}
+
+const TRAIL_LENGTH = 80;
+
+const TRAIL_COLORS = (() => {
+  const arr = new Float32Array(TRAIL_LENGTH * 3);
+  for (let j = 0; j < TRAIL_LENGTH; j++) {
+    const b = (j / (TRAIL_LENGTH - 1)) ** 1.5;
+    arr[j * 3] = b;
+    arr[j * 3 + 1] = b;
+    arr[j * 3 + 2] = b;
+  }
+  return arr;
+})();
+
+function FlightAnimation({
+  route,
+  speed = 0.035,
+  startOffset = 0,
+  cruiseAlt,
+}: {
+  route: { lat: number; lng: number }[];
+  speed?: number;
+  startOffset?: number;
+  cruiseAlt?: number;
+}) {
+  const groupRef = useRef<Group>(null);
+  const progressRef = useRef(startOffset);
+  const trailCount = useRef(0);
+
+  const unitVectors = useMemo(
+    () => route.map((wp) => latLngToUnitVector(wp.lat, wp.lng)),
+    [route],
+  );
+
+  const trail = useMemo(() => {
+    const positions = new Float32Array(TRAIL_LENGTH * 3);
+    const geom = new BufferGeometry();
+    geom.setAttribute("position", new BufferAttribute(positions, 3));
+    geom.setAttribute("color", new BufferAttribute(TRAIL_COLORS, 3));
+    geom.setDrawRange(0, 0);
+    const mat = new LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.7,
+    });
+    const line = new ThreeLine(geom, mat);
+    return { positions, geom, line };
+  }, []);
+
+  useEffect(() => () => {
+    trail.geom.dispose();
+    (trail.line.material as LineBasicMaterial).dispose();
+  }, [trail]);
+
+  useFrame((_, delta) => {
+    if (!groupRef.current) return;
+
+    progressRef.current = (progressRef.current + delta * speed) % 1;
+
+    const n = unitVectors.length;
+    const seg = progressRef.current * n;
+    const i = Math.floor(seg) % n;
+    const t = seg - Math.floor(seg);
+
+    const from = unitVectors[i];
+    const to = unitVectors[(i + 1) % n];
+
+    const pos = slerpVectors(from, to, t);
+    const alt = cruiseAlt ?? 0.04 + 0.14 * Math.sin(t * Math.PI);
+    const r = GLOBE_RADIUS * (1 + alt);
+    groupRef.current.position.set(pos.x * r, pos.y * r, pos.z * r);
+
+    const lookT = Math.min(t + 0.02, 0.999);
+    const lookPos = slerpVectors(from, to, lookT);
+    const lookAlt = cruiseAlt ?? 0.04 + 0.14 * Math.sin(lookT * Math.PI);
+    const lookR = GLOBE_RADIUS * (1 + lookAlt);
+
+    groupRef.current.up.copy(pos.clone().normalize());
+    groupRef.current.lookAt(
+      lookPos.x * lookR,
+      lookPos.y * lookR,
+      lookPos.z * lookR,
+    );
+
+    // Update trail
+    trail.positions.copyWithin(0, 3);
+    const last = (TRAIL_LENGTH - 1) * 3;
+    trail.positions[last] = pos.x * r;
+    trail.positions[last + 1] = pos.y * r;
+    trail.positions[last + 2] = pos.z * r;
+    trail.geom.attributes.position.needsUpdate = true;
+    if (trailCount.current < TRAIL_LENGTH) trailCount.current++;
+    trail.geom.setDrawRange(
+      TRAIL_LENGTH - trailCount.current,
+      trailCount.current,
+    );
+  });
+
+  return (
+    <>
+      <primitive object={trail.line} />
+      <group ref={groupRef} scale={1.2}>
+        {/* Fuselage */}
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <coneGeometry args={[0.4, 2.5, 4]} />
+          <meshStandardMaterial
+            color="#ffffff"
+            emissive="#ffffff"
+            emissiveIntensity={0.5}
+          />
+        </mesh>
+        {/* Wings */}
+        <mesh position={[0, 0, 0.3]}>
+          <boxGeometry args={[4, 0.08, 0.8]} />
+          <meshStandardMaterial
+            color="#e0e0e0"
+            emissive="#ffffff"
+            emissiveIntensity={0.3}
+          />
+        </mesh>
+        {/* Tail stabilizer */}
+        <mesh position={[0, 0, 1.2]}>
+          <boxGeometry args={[1.6, 0.08, 0.4]} />
+          <meshStandardMaterial
+            color="#e0e0e0"
+            emissive="#ffffff"
+            emissiveIntensity={0.3}
+          />
+        </mesh>
+        {/* Tail fin (brand orange) */}
+        <mesh position={[0, 0.5, 1.2]}>
+          <boxGeometry args={[0.08, 0.8, 0.5]} />
+          <meshStandardMaterial
+            color="#f58220"
+            emissive="#f58220"
+            emissiveIntensity={0.4}
+          />
+        </mesh>
+        {/* Engine glow */}
+        <pointLight
+          color="#f58220"
+          intensity={3}
+          distance={12}
+          position={[0, 0, 1.5]}
+        />
+      </group>
+    </>
   );
 }
 
@@ -307,6 +511,8 @@ function GlobeVisual({
           onClick={() => onDestinationClick?.(dest)}
         />
       ))}
+      <FlightAnimation route={FLIGHT_ROUTE_1} />
+      <FlightAnimation route={FLIGHT_ROUTE_2} speed={0.04} startOffset={0.5} cruiseAlt={0.12} />
     </threeGlobe>
   );
 }
