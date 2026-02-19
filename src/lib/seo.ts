@@ -77,7 +77,7 @@ export const defaultMetadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   alternates: {
-    canonical: SITE_URL,
+    canonical: "/",
   },
 };
 
