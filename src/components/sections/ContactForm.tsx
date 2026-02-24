@@ -1,10 +1,22 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Script from "next/script";
 import siteInfo from "@/lib/siteInfo.json";
 import countryCodes from "@/lib/countryCodes";
 
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
+
 type Status = "idle" | "sending" | "success" | "error";
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (cb: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -19,14 +31,24 @@ export default function ContactForm() {
     const countryCode = (form.elements.namedItem("countryCode") as HTMLSelectElement).value;
     const phoneNumber = (form.elements.namedItem("phone") as HTMLInputElement).value;
 
-    const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      phone: `${countryCode} ${phoneNumber}`,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-    };
-
     try {
+      const recaptchaToken = await new Promise<string>((resolve, reject) => {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha
+            .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
+            .then(resolve)
+            .catch(reject);
+        });
+      });
+
+      const data = {
+        name: (form.elements.namedItem("name") as HTMLInputElement).value,
+        email: (form.elements.namedItem("email") as HTMLInputElement).value,
+        phone: `${countryCode} ${phoneNumber}`,
+        message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+        recaptchaToken,
+      };
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -50,6 +72,10 @@ export default function ContactForm() {
 
   return (
     <div className="flex-1">
+      <Script
+        src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+        strategy="lazyOnload"
+      />
       {status === "success" ? (
         <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
           <p className="text-lg font-semibold text-green-800">Message sent!</p>
