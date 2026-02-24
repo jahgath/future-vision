@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Future Vision Travel — Kerala Travel Agency Since 2013",
   description:
-    "Learn about Future Vision Travel and Tours — a trusted Kerala-based travel agency crafting unforgettable journeys across India and the world since 2013.",
+    "Learn about Future Vision Travel and Tours — a trusted Kerala-based travel agency in Kottayam, founded in 2013 by Jijo Sreenivasan. 13+ years crafting unforgettable journeys across India, Southeast Asia, and the Middle East.",
   alternates: { canonical: "/about" },
   openGraph: {
     url: "/about",
-    title: "About Us | Future Vision Travel and Tours",
+    title: "About Future Vision Travel and Tours — Kerala Travel Agency Since 2013",
     description:
-      "Learn about Future Vision Travel and Tours — a trusted Kerala-based travel agency crafting unforgettable journeys across India and the world since 2013.",
+      "Learn about Future Vision Travel and Tours — a trusted Kerala-based travel agency in Kottayam, founded in 2013. 13+ years crafting unforgettable journeys across India and the world.",
   },
 };
 
@@ -52,11 +52,51 @@ export default function AboutPage() {
     { name: "About Us", url: "/about" },
   ]);
 
+  const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About Future Vision Travel and Tours",
+    url: `${SITE_URL}/about`,
+    mainEntity: {
+      "@type": "TravelAgency",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Future Vision Travel and Tours",
+      foundingDate: "2013",
+      founder: {
+        "@type": "Person",
+        name: "Jijo Sreenivasan",
+        jobTitle: "Managing Director",
+        image: `${SITE_URL}/images/managing-director.jpg`,
+        sameAs: ["https://www.instagram.com/jijosreenivasan"],
+        worksFor: {
+          "@type": "TravelAgency",
+          name: "Future Vision Travel and Tours",
+        },
+      },
+      numberOfEmployees: {
+        "@type": "QuantitativeValue",
+        minValue: 5,
+      },
+      knowsAbout: [
+        "Domestic travel in India",
+        "International tour packages",
+        "Southeast Asia travel",
+        "Middle East tours",
+        "Custom travel itineraries",
+        "Honeymoon packages",
+      ],
+    },
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
       />
 
       {/* Hero */}

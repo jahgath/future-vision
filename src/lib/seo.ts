@@ -6,16 +6,24 @@ export const SITE_URL = "https://futurevisiontours.com";
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${siteInfo.name} | Explore the World`,
+    default: `${siteInfo.name} | Kerala Travel Agency — Tour Packages for India & International`,
     template: `%s | ${siteInfo.name}`,
   },
-  description: siteInfo.description,
+  description:
+    "Future Vision Travel and Tours is a trusted Kerala-based travel agency offering curated tour packages for India, Southeast Asia, Dubai, Bali, Singapore & more. Plan your dream holiday with us.",
   keywords: [
+    "Future Vision",
+    "Future Vision Travel",
+    "Future Vision Tours",
+    "Future Vision Travel and Tours",
+    "futurevisiontours",
     "travel agency",
+    "travel agency Kerala",
+    "travel agency Kottayam",
+    "Kerala travel agency",
     "tour packages",
     "India travel",
     "international tours",
-    "Kerala travel agency",
     "holiday packages",
     "vacation planning",
     "curated travel experiences",
@@ -24,7 +32,11 @@ export const defaultMetadata: Metadata = {
     "Bali tours",
     "Thailand tours",
     "custom itineraries",
-    "Future Vision Travel",
+    "honeymoon packages",
+    "family tour packages",
+    "group tours India",
+    "Southeast Asia tours",
+    "Middle East tours",
   ],
   authors: [{ name: siteInfo.name, url: SITE_URL }],
   creator: siteInfo.name,
@@ -39,21 +51,23 @@ export const defaultMetadata: Metadata = {
     locale: "en_IN",
     url: SITE_URL,
     siteName: siteInfo.name,
-    title: `${siteInfo.name} | Explore the World`,
-    description: siteInfo.description,
+    title: `${siteInfo.name} | Kerala Travel Agency — Tour Packages for India & International`,
+    description:
+      "Future Vision Travel and Tours is a trusted Kerala-based travel agency offering curated tour packages for India, Southeast Asia, Dubai, Bali, Singapore & more.",
     images: [
       {
         url: "/images/future-vision-logo-2.png",
         width: 1200,
         height: 630,
-        alt: siteInfo.name,
+        alt: "Future Vision Travel and Tours — Your Trusted Travel Agency",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteInfo.name} | Explore the World`,
-    description: siteInfo.description,
+    title: `${siteInfo.name} | Kerala Travel Agency`,
+    description:
+      "Future Vision Travel and Tours — curated tour packages for India, Southeast Asia, Dubai, Bali, Singapore & more.",
     images: ["/images/future-vision-logo-2.png"],
   },
   robots: {
@@ -79,18 +93,42 @@ export const defaultMetadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "TravelAgency",
+    "@id": `${SITE_URL}/#organization`,
     name: siteInfo.name,
-    alternateName: siteInfo.shortName,
+    alternateName: [siteInfo.shortName, "Future Vision Tours", "Future Vision Travel"],
     url: SITE_URL,
-    logo: `${SITE_URL}/images/future-vision-logo-2.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/images/future-vision-logo-2.png`,
+      width: 512,
+      height: 512,
+    },
     image: `${SITE_URL}/images/future-vision-logo-2.png`,
-    description: siteInfo.description,
+    description:
+      "Future Vision Travel and Tours is a trusted Kerala-based travel agency offering curated domestic and international tour packages since 2013.",
+    foundingDate: "2013",
+    foundingLocation: {
+      "@type": "Place",
+      name: "Kottayam, Kerala, India",
+    },
+    founder: {
+      "@type": "Person",
+      name: "Jijo Sreenivasan",
+      jobTitle: "Managing Director",
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: `${siteInfo.location.building}, ${siteInfo.location.junction}, ${siteInfo.location.street}`,
@@ -104,17 +142,50 @@ export function organizationJsonLd() {
       latitude: 9.6721,
       longitude: 76.5687,
     },
+    hasMap: siteInfo.location.mapLink,
     telephone: siteInfo.contact.phone1,
     email: siteInfo.contact.email,
-    sameAs: [
-      `https://wa.me/${siteInfo.contact.whatsapp1}`,
+    priceRange: "$$",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: siteInfo.contact.phone1,
-      contactType: "customer service",
-      availableLanguage: ["English", "Hindi", "Malayalam"],
-    },
+    areaServed: [
+      { "@type": "Country", name: "India" },
+      { "@type": "Country", name: "Singapore" },
+      { "@type": "Country", name: "Malaysia" },
+      { "@type": "Country", name: "Indonesia" },
+      { "@type": "Country", name: "Thailand" },
+      { "@type": "Country", name: "Vietnam" },
+      { "@type": "Country", name: "Azerbaijan" },
+      { "@type": "Country", name: "Georgia" },
+      { "@type": "Country", name: "Oman" },
+      { "@type": "Country", name: "United Arab Emirates" },
+      { "@type": "Country", name: "Sri Lanka" },
+    ],
+    sameAs: [
+      siteInfo.location.mapLink,
+      `https://wa.me/${siteInfo.contact.whatsapp1}`,
+      "https://www.instagram.com/jijosreenivasan",
+    ],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: siteInfo.contact.phone1,
+        contactType: "customer service",
+        availableLanguage: ["English", "Hindi", "Malayalam"],
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: siteInfo.contact.phone2,
+        contactType: "reservations",
+        availableLanguage: ["English", "Hindi", "Malayalam"],
+      },
+    ],
   };
 }
 
@@ -122,9 +193,34 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: siteInfo.name,
-    alternateName: siteInfo.shortName,
+    alternateName: [siteInfo.shortName, "Future Vision Tours"],
     url: SITE_URL,
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `https://www.google.com/search?q=site:futurevisiontours.com+{search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+export function faqJsonLd(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
   };
 }
 

@@ -6,15 +6,15 @@ import siteInfo from "@/lib/siteInfo.json";
 import DestinationTabs from "@/components/sections/DestinationTabs";
 
 export const metadata: Metadata = {
-  title: "Destinations",
+  title: "Tour Destinations — India, Southeast Asia, Dubai & More",
   description:
-    "Explore curated travel destinations across India and the world — from Kerala backwaters and Rajasthan forts to Bali beaches and Dubai skylines.",
+    "Explore 50+ curated travel destinations with Future Vision Travel and Tours — Kerala backwaters, Rajasthan forts, Singapore, Bali, Dubai, Thailand, Vietnam & more. Book your dream tour today.",
   alternates: { canonical: "/destinations" },
   openGraph: {
     url: "/destinations",
-    title: "Destinations | Future Vision Travel and Tours",
+    title: "Tour Destinations | Future Vision Travel and Tours",
     description:
-      "Explore curated travel destinations across India and the world — from Kerala backwaters and Rajasthan forts to Bali beaches and Dubai skylines.",
+      "Explore 50+ curated travel destinations with Future Vision Travel — Kerala, Rajasthan, Singapore, Bali, Dubai, Thailand, Vietnam & more.",
   },
 };
 

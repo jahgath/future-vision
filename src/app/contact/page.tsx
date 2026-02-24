@@ -4,13 +4,13 @@ import { breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import ContactForm from "@/components/sections/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: `Get in touch with ${siteInfo.name}. Plan your next trip with our travel experts in Kottayam, Kerala. Call, email, or send us a message.`,
+  title: "Contact Future Vision Travel — Call, Email, or Visit Us in Kottayam",
+  description: `Get in touch with Future Vision Travel and Tours in Kottayam, Kerala. Call +91 94477 36469, email info@futurevisiontours.com, or visit our office to plan your next trip.`,
   alternates: { canonical: "/contact" },
   openGraph: {
     url: "/contact",
-    title: `Contact Us | ${siteInfo.name}`,
-    description: `Get in touch with ${siteInfo.name}. Plan your next trip with our travel experts in Kottayam, Kerala.`,
+    title: `Contact Future Vision Travel and Tours — Kottayam, Kerala`,
+    description: `Get in touch with Future Vision Travel and Tours. Call, email, or visit our office in Kottayam, Kerala to plan your next trip.`,
   },
 };
 
@@ -28,6 +28,7 @@ export default function ContactPage() {
     url: `${SITE_URL}/contact`,
     mainEntity: {
       "@type": "TravelAgency",
+      "@id": `${SITE_URL}/#organization`,
       name: siteInfo.name,
       telephone: siteInfo.contact.phone1,
       email: siteInfo.contact.email,
@@ -39,6 +40,15 @@ export default function ContactPage() {
         postalCode: siteInfo.location.pincode,
         addressCountry: "IN",
       },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          opens: "09:00",
+          closes: "18:00",
+        },
+      ],
+      hasMap: siteInfo.location.mapLink,
     },
   };
 

@@ -16,16 +16,45 @@ const GlobeHero = dynamic(() => import("@/components/sections/GlobeHero"), {
 import WhyUs from "@/components/sections/WhyUs";
 import CTA from "@/components/sections/CTA";
 import siteInfo from "@/lib/siteInfo.json";
-import { SITE_URL } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     url: SITE_URL,
-    title: `${siteInfo.name} | Explore the World`,
-    description: siteInfo.description,
+    title: `${siteInfo.name} | Kerala Travel Agency — Tour Packages for India & International`,
+    description:
+      "Future Vision Travel and Tours is a trusted Kerala-based travel agency offering curated tour packages for India, Southeast Asia, Dubai, Bali, Singapore & more.",
   },
 };
+
+const homeFaqs = [
+  {
+    question: "What is Future Vision Travel and Tours?",
+    answer:
+      "Future Vision Travel and Tours is a Kerala-based travel agency founded in 2013, offering curated domestic and international tour packages. We specialise in destinations across India, Southeast Asia, the Middle East, and the Caucasus region.",
+  },
+  {
+    question: "Where is Future Vision Travel located?",
+    answer:
+      "Future Vision Travel and Tours is located at Vanchipurackal Buildings, Mangarakulangu Jn., Pala Road, Ettumanoor P.O, Kottayam, Kerala - 686631, India.",
+  },
+  {
+    question: "What destinations does Future Vision Travel offer?",
+    answer:
+      "We offer tour packages to 50+ destinations including Kerala, Rajasthan, Goa, Kashmir, Singapore, Dubai, Bali, Thailand, Vietnam, Malaysia, Azerbaijan, Georgia, Oman, UAE, and Sri Lanka.",
+  },
+  {
+    question: "How can I contact Future Vision Travel?",
+    answer:
+      "You can reach us by phone at +91 94477 36469, by email at info@futurevisiontours.com, or visit our office in Kottayam, Kerala. We are also available on WhatsApp.",
+  },
+  {
+    question: "Does Future Vision Travel offer custom itineraries?",
+    answer:
+      "Yes, Future Vision Travel specialises in personalised travel itineraries tailored to your interests, budget, and schedule — whether it's a honeymoon, family holiday, group tour, or solo adventure.",
+  },
+];
 
 export default function Home() {
   const serviceJsonLd = {
@@ -54,11 +83,22 @@ export default function Home() {
       "Curated travel packages and custom itineraries for India and international destinations including Southeast Asia, Middle East, and the Caucasus.",
   };
 
+  const breadcrumb = breadcrumbJsonLd([{ name: "Home", url: "/" }]);
+  const faq = faqJsonLd(homeFaqs);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
       />
       <GlobeHero />
       <Destinations />
