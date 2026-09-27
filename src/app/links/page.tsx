@@ -49,7 +49,7 @@ const links: LinkItem[] = [
   },
   {
     label: "WhatsApp",
-    href: "https://wa.me/918943121169",
+    href: `https://wa.me/${siteInfo.contact.phone1.replace(/\D/g, "")}`,
     external: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
