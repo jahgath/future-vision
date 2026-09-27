@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { defaultMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const manrope = Manrope({
@@ -42,9 +40,7 @@ export default function RootLayout({
       <body
         className="antialiased"
       >
-        <Header />
-        <main className="w-full overflow-x-clip">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
